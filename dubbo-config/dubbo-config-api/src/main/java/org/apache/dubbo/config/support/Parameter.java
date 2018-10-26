@@ -16,11 +16,7 @@
  */
 package org.apache.dubbo.config.support;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.lang.annotation.*;
 
 /**
  * Parameter
@@ -34,12 +30,32 @@ public @interface Parameter {
 
     boolean required() default false;
 
+    /**
+     * 是否忽略
+     *
+     * @return
+     */
     boolean excluded() default false;
 
+    /**
+     * 是否转义
+     *
+     * @return
+     */
     boolean escaped() default false;
 
+    /**
+     * 是否为属性
+     *
+     * @return
+     */
     boolean attribute() default false;
 
+    /**
+     * 是否拼接默认属性
+     *
+     * @return
+     */
     boolean append() default false;
 
 }

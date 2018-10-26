@@ -79,6 +79,7 @@ public class URL extends org.apache.dubbo.common.URL {
         return org.apache.dubbo.common.URL.decode(value);
     }
 
+    @Override
     public String getProtocol() {
         return super.getProtocol();
     }
