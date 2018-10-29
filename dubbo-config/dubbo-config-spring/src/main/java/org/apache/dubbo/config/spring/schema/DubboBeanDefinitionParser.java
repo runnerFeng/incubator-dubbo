@@ -64,6 +64,9 @@ public class DubboBeanDefinitionParser implements BeanDefinitionParser {
     private static final Logger logger = LoggerFactory.getLogger(DubboBeanDefinitionParser.class);
     private static final Pattern GROUP_AND_VERION = Pattern.compile("^[\\-.0-9_a-zA-Z]+(\\:[\\-.0-9_a-zA-Z]+)?$");
     private final Class<?> beanClass;
+    /**
+     * 是否需要bean的'id'属性
+     */
     private final boolean required;
 
     public DubboBeanDefinitionParser(Class<?> beanClass, boolean required) {
@@ -127,7 +130,7 @@ public class DubboBeanDefinitionParser implements BeanDefinitionParser {
         } else if (ConsumerConfig.class.equals(beanClass)) {
             parseNested(element, parserContext, ReferenceBean.class, false, "reference", "consumer", id, beanDefinition);
         }
-        Set<String> props = new HashSet<String>();
+        Set<String> props = new HashSet<>();
         ManagedMap parameters = null;
         for (Method setter : beanClass.getMethods()) {
             String name = setter.getName();

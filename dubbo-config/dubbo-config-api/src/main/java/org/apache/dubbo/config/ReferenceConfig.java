@@ -70,7 +70,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
     private static final Cluster cluster = ExtensionLoader.getExtensionLoader(Cluster.class).getAdaptiveExtension();
 
     private static final ProxyFactory proxyFactory = ExtensionLoader.getExtensionLoader(ProxyFactory.class).getAdaptiveExtension();
-    private final List<URL> urls = new ArrayList<URL>();
+    private final List<URL> urls = new ArrayList<>();
     // interface name
     private String interfaceName;
     private Class<?> interfaceClass;
@@ -194,12 +194,15 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
         }
         // get consumer's global configuration
         checkDefault();
+        // 拼接属性配置到ReferenceConfig对象
         appendProperties(this);
         if (getGeneric() == null && getConsumer() != null) {
             setGeneric(getConsumer().getGeneric());
         }
+        // 泛化接口的实现
         if (ProtocolUtils.isGeneric(getGeneric())) {
             interfaceClass = GenericService.class;
+            // 普通接口的实现
         } else {
             try {
                 interfaceClass = Class.forName(interfaceName, true, Thread.currentThread()
@@ -301,7 +304,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
                 logger.warn("NO method found in service interface " + interfaceClass.getName());
                 map.put("methods", Constants.ANY_VALUE);
             } else {
-                map.put("methods", StringUtils.join(new HashSet<String>(Arrays.asList(methods)), ","));
+                map.put("methods", StringUtils.join(new HashSet<>(Arrays.asList(methods)), ","));
             }
         }
         map.put(Constants.INTERFACE_KEY, interfaceName);
@@ -311,7 +314,7 @@ public class ReferenceConfig<T> extends AbstractReferenceConfig {
         appendParameters(map, this);
         String prefix = StringUtils.getServiceKey(map);
         if (methods != null && !methods.isEmpty()) {
-            Map<Object, Object> attributes = new HashMap<Object, Object>();
+            Map<Object, Object> attributes = new HashMap<>();
             for (MethodConfig method : methods) {
                 appendParameters(map, method, method.getName());
                 String retryKey = method.getName() + ".retry";

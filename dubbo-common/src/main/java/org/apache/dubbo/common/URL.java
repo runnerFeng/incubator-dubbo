@@ -80,7 +80,7 @@ class URL implements Serializable {
 
     private final String path;
 
-    private final Map<String, String> parameters;
+    private final Map<String, String>  parameters;
 
     // ==== cache ====
 

@@ -61,6 +61,7 @@ public interface Invocation {
 
     /**
      * get attachment by key.
+     * 隐式传参相关
      *
      * @return attachment value.
      * @serial

@@ -21,7 +21,7 @@ import java.util.Map;
 
 @Deprecated
 public interface Invocation extends org.apache.dubbo.rpc.Invocation {
-
+    @Override
     Invoker<?> getInvoker();
 
     default org.apache.dubbo.rpc.Invocation getOriginal() {
