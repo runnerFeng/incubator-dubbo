@@ -33,19 +33,21 @@ public class MockInvocation implements Invocation {
     public MockInvocation(String arg0) {
         this.arg0 = arg0;
     }
-
+    @Override
     public String getMethodName() {
         return "echo";
     }
-
+    @Override
     public Class<?>[] getParameterTypes() {
         return new Class[]{String.class};
     }
 
+    @Override
     public Object[] getArguments() {
         return new Object[]{arg0};
     }
 
+    @Override
     public Map<String, String> getAttachments() {
         Map<String, String> attachments = new HashMap<String, String>();
         attachments.put(Constants.PATH_KEY, "dubbo");
@@ -56,15 +58,15 @@ public class MockInvocation implements Invocation {
         attachments.put(Constants.TIMEOUT_KEY, "1000");
         return attachments;
     }
-
+    @Override
     public Invoker<?> getInvoker() {
         return null;
     }
-
+    @Override
     public String getAttachment(String key) {
         return getAttachments().get(key);
     }
-
+    @Override
     public String getAttachment(String key, String defaultValue) {
         return getAttachments().get(key);
     }

@@ -77,7 +77,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
     private static final Map<String, Integer> RANDOM_PORT_MAP = new HashMap<String, Integer>();
 
     private static final ScheduledExecutorService delayExportExecutor = Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory("DubboServiceDelayExporter", true));
-    private final List<URL> urls = new ArrayList<URL>();
+    private final List<URL> urls = new ArrayList<>();
     private final List<Exporter<?>> exporters = new ArrayList<Exporter<?>>();
     // interface type
     private String interfaceName;
@@ -89,8 +89,9 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
     // method configuration
     private List<MethodConfig> methods;
     private ProviderConfig provider;
+    // 已经暴露
     private transient volatile boolean exported;
-
+    // 还未暴露
     private transient volatile boolean unexported;
 
     private volatile String generic;
@@ -200,17 +201,14 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
                 delay = provider.getDelay();
             }
         }
+        // 不暴露服务
         if (export != null && !export) {
             return;
         }
-
+        // 延迟暴露服务
         if (delay != null && delay > 0) {
-            delayExportExecutor.schedule(new Runnable() {
-                @Override
-                public void run() {
-                    doExport();
-                }
-            }, delay, TimeUnit.MILLISECONDS);
+            delayExportExecutor.schedule(() -> doExport(), delay, TimeUnit.MILLISECONDS);
+            // 立即暴露
         } else {
             doExport();
         }
@@ -227,6 +225,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
         if (interfaceName == null || interfaceName.length() == 0) {
             throw new IllegalStateException("<dubbo:service interface=\"\" /> interface not allow null!");
         }
+        // 拼接属性配置
         checkDefault();
         if (provider != null) {
             if (application == null) {

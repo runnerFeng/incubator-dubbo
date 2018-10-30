@@ -29,6 +29,7 @@ public interface ProxyFactory {
 
     /**
      * create proxy.
+     * 创建Proxy,在引用服务调用
      *
      * @param invoker
      * @return proxy
@@ -47,11 +48,12 @@ public interface ProxyFactory {
 
     /**
      * create invoker.
+     * 创建Invoker,在暴露服务调用
      *
      * @param <T>
-     * @param proxy
-     * @param type
-     * @param url
+     * @param proxy service对象
+     * @param type  service接口类型
+     * @param url   service对应的Dubbo URL
      * @return invoker
      */
     @Adaptive({Constants.PROXY_KEY})

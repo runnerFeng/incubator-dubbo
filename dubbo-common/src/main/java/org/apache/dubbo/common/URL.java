@@ -26,14 +26,7 @@ import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -68,7 +61,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @see java.net.URL
  * @see java.net.URI
  */
-public /**final**/ class URL implements Serializable {
+public /**final**/
+class URL implements Serializable {
 
     private static final long serialVersionUID = -1985165475234910535L;
 
@@ -86,7 +80,7 @@ public /**final**/ class URL implements Serializable {
 
     private final String path;
 
-    private final Map<String, String> parameters;
+    private final Map<String, String>  parameters;
 
     // ==== cache ====
 
@@ -246,7 +240,7 @@ public /**final**/ class URL implements Serializable {
                 // see https://howdoesinternetwork.com/2013/ipv6-zone-id
                 // ignore
             } else {
-                port = Integer.parseInt(url.substring(i+1));
+                port = Integer.parseInt(url.substring(i + 1));
                 url = url.substring(0, i);
             }
         }
@@ -321,7 +315,7 @@ public /**final**/ class URL implements Serializable {
 
     /**
      * Fetch IP address for this URL.
-     *
+     * <p>
      * Pls. note that IP should be used instead of Host when to compare with socket's address or to search in a map
      * which use address as its key.
      *
