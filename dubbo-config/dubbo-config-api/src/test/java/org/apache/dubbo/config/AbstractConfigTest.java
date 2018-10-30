@@ -130,7 +130,7 @@ public class AbstractConfigTest {
 
     @Test
     public void testAppendParameters4() throws Exception {
-        Map<String, String> parameters = new HashMap<String, String>();
+        Map<String, String> parameters = new HashMap<>();
         AbstractConfig.appendParameters(parameters, new ParameterConfig(1, "hello/world", 30, "password"));
         TestCase.assertEquals("one", parameters.get("key.1"));
         TestCase.assertEquals("two", parameters.get("key.2"));
@@ -141,7 +141,7 @@ public class AbstractConfigTest {
 
     @Test
     public void testAppendAttributes1() throws Exception {
-        Map<Object, Object> parameters = new HashMap<Object, Object>();
+        Map<Object, Object> parameters = new HashMap<>();
         AbstractConfig.appendAttributes(parameters, new AttributeConfig('l', true, (byte) 0x01), "prefix");
         TestCase.assertEquals('l', parameters.get("prefix.let"));
         TestCase.assertEquals(true, parameters.get("prefix.activate"));

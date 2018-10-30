@@ -277,7 +277,7 @@ public abstract class AbstractConfig implements Serializable {
                 }
             } catch (Exception e) {
                 throw new IllegalStateException(e.getMessage(), e);
-            }
+             }
         }
     }
 
