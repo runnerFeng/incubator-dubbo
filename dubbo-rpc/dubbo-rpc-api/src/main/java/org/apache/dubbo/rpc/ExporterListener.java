@@ -26,6 +26,7 @@ public interface ExporterListener {
 
     /**
      * The exporter exported.
+     * 当服务暴露完成
      *
      * @param exporter
      * @throws RpcException

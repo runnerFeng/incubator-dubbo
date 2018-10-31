@@ -26,6 +26,7 @@ public interface InvokerListener {
 
     /**
      * The invoker referred
+     * 当服务引用完成
      *
      * @param invoker
      * @throws RpcException
