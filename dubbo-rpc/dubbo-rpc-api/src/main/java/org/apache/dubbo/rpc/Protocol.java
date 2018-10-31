@@ -41,8 +41,8 @@ public interface Protocol {
      * export the same URL<br>
      * 3. Invoker instance is passed in by the framework, protocol needs not to care <br>
      *
-     * @param <T>     Service type
-     * @param invoker Service invoker
+     * @param <T>     Service type  服务类型
+     * @param invoker Service invoker  服务执行体
      * @return exporter reference for exported service, useful for unexport the service later
      * @throws RpcException thrown when error occurs during export the service, for example: port is occupied
      */
