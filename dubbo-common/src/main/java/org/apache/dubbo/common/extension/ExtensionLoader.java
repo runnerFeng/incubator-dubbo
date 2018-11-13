@@ -56,7 +56,9 @@ public class ExtensionLoader<T> {
      * 用户自定义拓展实现目录
      */
     private static final String DUBBO_DIRECTORY = "META-INF/dubbo/";
-
+    /**
+     * dubbo内部提供的拓展实现
+     */
     private static final String DUBBO_INTERNAL_DIRECTORY = DUBBO_DIRECTORY + "internal/";
     /**
      * 拓展名分隔符使用逗号
@@ -72,7 +74,6 @@ public class ExtensionLoader<T> {
      * key:拓展接口
      * value:拓展对象
      */
-
     private static final ConcurrentMap<Class<?>, Object> EXTENSION_INSTANCES = new ConcurrentHashMap<>();
 
     // ==============================
@@ -84,18 +85,38 @@ public class ExtensionLoader<T> {
      * 对象工厂
      */
     private final ExtensionFactory objectFactory;
-
+    /**
+     * 缓存的拓展名与拓展类映射
+     */
     private final ConcurrentMap<Class<?>, String> cachedNames = new ConcurrentHashMap<>();
-
+    /**
+     * 缓存的拓展实现类集合
+     */
     private final Holder<Map<String, Class<?>>> cachedClasses = new Holder<>();
-
-    private final Map<String, Object> cachedActivates = new ConcurrentHashMap<>();
+    /**
+     * 缓存的拓展对象集合
+     */
     private final ConcurrentMap<String, Holder<Object>> cachedInstances = new ConcurrentHashMap<>();
+    /**
+     * 拓展名与@Activate映射
+     */
+    private final Map<String, Object> cachedActivates = new ConcurrentHashMap<>();
+    /**
+     * 缓存的自适应(Adaptive)拓展对象
+     */
     private final Holder<Object> cachedAdaptiveInstance = new Holder<>();
+    /**
+     * 缓存的自适应拓展对象的类
+     */
     private volatile Class<?> cachedAdaptiveClass = null;
+    /**
+     * 缓存的默认拓展名
+     */
     private String cachedDefaultName;
     private volatile Throwable createAdaptiveInstanceError;
-
+    /**
+     * 拓展 Wrapper实现类集合
+     */
     private Set<Class<?>> cachedWrapperClasses;
 
     private Map<String, IllegalStateException> exceptions = new ConcurrentHashMap<>();
@@ -595,7 +616,7 @@ public class ExtensionLoader<T> {
                 String[] names = NAME_SEPARATOR.split(value);
                 if (names.length > 1) {
                     throw new IllegalStateException("more than 1 default extension name on extension " + type.getName()
-                            + ": " + Arrays.toString(names));
+                             + ": " + Arrays.toString(names));
                 }
                 if (names.length == 1) {
                     cachedDefaultName = names[0];
