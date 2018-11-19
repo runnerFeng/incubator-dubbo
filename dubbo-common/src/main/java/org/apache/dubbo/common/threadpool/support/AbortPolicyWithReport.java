@@ -45,7 +45,9 @@ public class AbortPolicyWithReport extends ThreadPoolExecutor.AbortPolicy {
     private final URL url;
 
     private static volatile long lastPrintTime = 0;
-
+    /**
+     * 信号量，大小为1
+     */
     private static Semaphore guard = new Semaphore(1);
 
     public AbortPolicyWithReport(String threadName, URL url) {
